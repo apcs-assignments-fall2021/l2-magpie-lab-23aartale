@@ -42,6 +42,29 @@ public class Magpie
         {
             response = "Tell me more about your family.";
         }
+        else if (statement.indexOf("dog") >= 0
+                || statement.indexOf("cat") >=0)
+        {
+            response = "Tell me more about your pets.";
+        }
+        else if (statement.indexOf("Nathan") >= 0)
+        {
+            response = "Nathan is such a smart and powerful teacher";
+        }
+        else if (statement.equals(" ")){
+            statement = statement.trim();
+            if (statement.length()==0){
+                response = "Say something, please";
+            }
+        }
+        else if (statement.indexOf("yes") >= 0)
+        {
+            response = "Why so postive?";
+        }
+        else if (statement.indexOf("hi") >= 0)
+        {
+            response = "What do you want?";
+        }
         else
         {
             response = getRandomResponse();
@@ -55,7 +78,7 @@ public class Magpie
      */
     public String getRandomResponse()
     {
-        final int NUMBER_OF_RESPONSES = 4;
+        final int NUMBER_OF_RESPONSES = 6;
         double r = Math.random();
         int whichResponse = (int)(r * NUMBER_OF_RESPONSES);
         String response = "";
@@ -76,6 +99,14 @@ public class Magpie
         {
             response = "You don't say.";
         }
+        else if (whichResponse == 4)
+        {
+            response = "Shut up stupid weirdo";
+        }
+        else if (whichResponse == 5)
+        {
+            response = "Do you talk to your mom with that mouth";
+        }
     
         return response;
     }
@@ -90,10 +121,24 @@ public class Magpie
     // The method returns the index of the first character in word
     // if it is found, and returns -1 otherwise. 
     public int findWord(String str, String word) {
-        return -1;
+        int checker = 5;
+        // Check if there is a space before and after the word
+        if (str.charAt(str.indexOf(word) -1) == ' ' &&  str.charAt(str.indexOf(word) + word.length()) == ' ') {
+            checker = str.indexOf(word);
+        }
+        if (str.charAt(str.indexOf(word) -1) == ' ' && str.charAt(str.indexOf(word) + word.length()) == 33->63) {
+            checker = str.indexOf(word);
+        }
+        if (str.charAt(str.indexOf(word)) == str.indexOf(word.equals(str.indexOf(word.toUpperCase()))) &&  str.charAt(str.indexOf(word) + word.length()) == ' ') {
+            checker = str.indexOf(word);
+        }
+        else{
+            return -1;
+        }
+        return checker;
     }
 
-    
+
     // We will work on the following methods later!
 
     /**
