@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 /**
  * A program to carry on conversations with a human user.
  * This is the initial version that:  
@@ -121,21 +123,27 @@ public class Magpie
     // The method returns the index of the first character in word
     // if it is found, and returns -1 otherwise. 
     public int findWord(String str, String word) {
-        int checker = 5;
-        // Check if there is a space before and after the word
-        if (str.charAt(str.indexOf(word) -1) == ' ' &&  str.charAt(str.indexOf(word) + word.length()) == ' ') {
-            checker = str.indexOf(word);
-        }
-        if (str.charAt(str.indexOf(word) -1) == ' ' && str.charAt(str.indexOf(word) + word.length()) == 33->63) {
-            checker = str.indexOf(word);
-        }
-        if (str.charAt(str.indexOf(word)) == str.indexOf(word.equals(str.indexOf(word.toUpperCase()))) &&  str.charAt(str.indexOf(word) + word.length()) == ' ') {
-            checker = str.indexOf(word);
-        }
-        else{
+        str = str.toLowerCase();
+        word = word.toLowerCase();
+        int flute = str.indexOf(word);
+        int weak = word.length();
+        //check to see if word is th3ere
+        if (str.indexOf(word) == -1) {
             return -1;
         }
-        return checker;
+        //check to see if it is inbetween spaces
+        if (str.charAt(flute - 1) == ' ' &&  str.charAt(flute + (weak-1)) == ' '){
+            return flute;
+        }
+        //check to see if it is last word
+        else if (str.charAt(flute - 1) == ' ' && str.charAt(flute + weak) == str.length()) {
+            return flute;
+        }
+        //check to see if it is first word
+        else if (flute == 0 && str.charAt(flute + (weak)) == ' ') {
+            return flute;
+        }
+        return -1;
     }
 
 
@@ -147,10 +155,18 @@ public class Magpie
      * @param statement the user statement, assumed to contain "I want"
      * @return the transformed statement
      */
-    public String transformIWantStatement(String statement)
-    {
-        //your code here
-        return "";
+    public String transformIWantStatement(String statement){
+        statement = statement.toLowerCase();
+        String str = "";
+//        int last = str.indexOf(statement);
+//        if (last - 1 == ' ' && last == statement.length()){
+//            String finito =
+//        }
+        if (statement.indexOf("i want") >= 0){
+            int last_word = findWord(statement, "i want");
+            last_word = (statement.length() -1) - last_word;
+        }
+        return str;
     }
 
     /**
