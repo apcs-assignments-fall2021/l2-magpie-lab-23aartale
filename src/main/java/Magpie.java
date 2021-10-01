@@ -30,10 +30,23 @@ public class Magpie
      *            the user statement
      * @return a response based on the rules given
      */
-    public String getResponse(String statement)
-    {
-        String response = "";
-        if (statement.indexOf("no") >= 0)
+    public String getResponse(String statement) {String response = "";
+        if (findWord(statement, "i want") >= 0) {
+        response = transformIWantStatement(statement);
+        }
+        else if ((findWord(statement,"i") >= 0 && findWord(statement,"you") >= 0)){
+            response = transformIYouStatement(statement);
+        }
+        else if (findWord(statement,"i want to") >= 0){
+            response = transformIWantToStatement(statement);
+        }
+        else if (findWord(statement,"you") >= 0 && findWord(statement,"me") >= 0){
+            response = transformYouMeStatement(statement);
+        }
+        else if (findWord(statement, "i hate") >= 0){
+            response = transformIHateStatement(statement);
+        }
+        else if (statement.indexOf("no") >= 0)
         {
             response = "Why so negative?";
         }
@@ -180,8 +193,7 @@ public class Magpie
      * @param statement the user statement, assumed to contain "I" followed by "you"
      * @return the transformed statement
      */
-    public String transformIYouStatement(String statement)
-    {
+    public String transformIYouStatement(String statement){
         statement = statement.toLowerCase();
         String str = "";
         String response = "";
@@ -239,6 +251,25 @@ public class Magpie
             last_word = (statement.length() - 3);
             str = statement.substring(first_word,last_word);
             response = "What makes you think that I " + str + " you?";
+        }
+        return response;
+    }
+
+    /**
+     * Take a statement with "i hate <something>" and transform it into
+     * "I also hate <something>!"
+     * @param statement the user statement, assumed to contain "you" followed by "me"
+     * @return the transformed statement
+     */
+    public String transformIHateStatement(String statement){
+        statement = statement.toLowerCase();
+        String str = "";
+        String response = "";
+        if (statement.indexOf("i hate") >= 0){
+            int last_word = findWord(statement, "i hate");
+            last_word += 7;
+            str = statement.substring(last_word,statement.length());
+            response = "I also hate " + str + "!";
         }
         return response;
     }
