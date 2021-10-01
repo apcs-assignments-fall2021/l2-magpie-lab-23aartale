@@ -131,16 +131,18 @@ public class Magpie
         if (str.indexOf(word) == -1) {
             return -1;
         }
-        //check to see if it is inbetween spaces
-        if (str.charAt(flute - 1) == ' ' &&  str.charAt(flute + (weak-1)) == ' '){
-            return flute;
-        }
-        //check to see if it is last word
-        else if (str.charAt(flute - 1) == ' ' && str.charAt(flute + weak) == str.length()) {
-            return flute;
-        }
         //check to see if it is first word
         else if (flute == 0 && str.charAt(flute + (weak)) == ' ') {
+            return flute;
+        }
+
+        //check to see if it is last word
+        else if (str.charAt(flute - 1) == ' ' && flute + weak == str.length()) {
+            return flute;
+        }
+
+        //check to see if it is inbetween spaces
+        if (str.charAt(flute - 1) == ' ' &&  str.charAt(flute + (weak)) == ' '){
             return flute;
         }
         return -1;
@@ -158,15 +160,18 @@ public class Magpie
     public String transformIWantStatement(String statement){
         statement = statement.toLowerCase();
         String str = "";
-//        int last = str.indexOf(statement);
-//        if (last - 1 == ' ' && last == statement.length()){
-//            String finito =
-//        }
+        String response = "";
+        //check to see if "I want" is there
         if (statement.indexOf("i want") >= 0){
+            //calling the function above to seperate "I want" from the word that comes after
             int last_word = findWord(statement, "i want");
-            last_word = (statement.length() -1) - last_word;
+            //last word becomes index of the word after the "I want"
+            last_word += 7;
+            //length of word after the "I want"
+            str = statement.substring(last_word,statement.length());
+            response = "Would you really be happy if you had " + str + "?";
         }
-        return str;
+        return response;
     }
 
     /**
@@ -177,8 +182,18 @@ public class Magpie
      */
     public String transformIYouStatement(String statement)
     {
-        //your code here
-        return "";
+        statement = statement.toLowerCase();
+        String str = "";
+        String response = "";
+        if (statement.indexOf("i") >= 0 && statement.indexOf("you") >= 0){
+            int first_word= findWord(statement, "i");
+            first_word += 2;
+            int last_word= findWord(statement, "you");
+            last_word = (statement.length() - 4);
+            str = statement.substring(first_word,last_word);
+            response = "Why do you " + str + " me?";
+        }
+        return response;
     }
 
     /**
@@ -187,10 +202,21 @@ public class Magpie
      * @param statement the user statement, assumed to contain "I want to"
      * @return the transformed statement
      */
-    public String transformIWantToStatement(String statement)
-    {
-        // your code here
-        return "";
+    public String transformIWantToStatement(String statement){
+        statement = statement.toLowerCase();
+        String str = "";
+        String response = "";
+        //check to see if "I want" is there
+        if (statement.indexOf("i want to") >= 0){
+            //calling the function above to seperate "I want" from the word that comes after
+            int last_word = findWord(statement, "i want");
+            //last word becomes index of the word after the "I want"
+            last_word += 9;
+            //length of word after the "I want"
+            str = statement.substring(last_word,statement.length());
+            response = "What would it mean to" + str + "?";
+        }
+        return response;
     }
 
 
@@ -202,9 +228,18 @@ public class Magpie
      * @param statement the user statement, assumed to contain "you" followed by "me"
      * @return the transformed statement
      */
-    public String transformYouMeStatement(String statement)
-    {
-        // your code here
-        return "";
+    public String transformYouMeStatement(String statement){
+        statement = statement.toLowerCase();
+        String str = "";
+        String response = "";
+        if (statement.indexOf("you") >= 0 && statement.indexOf("me") >= 0){
+            int first_word= findWord(statement, "you");
+            first_word += 4;
+            int last_word= findWord(statement, "me");
+            last_word = (statement.length() - 3);
+            str = statement.substring(first_word,last_word);
+            response = "What makes you think that I " + str + " you?";
+        }
+        return response;
     }
 }
